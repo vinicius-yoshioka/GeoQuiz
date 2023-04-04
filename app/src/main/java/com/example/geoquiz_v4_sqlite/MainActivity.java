@@ -13,9 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /*
+  Modelo de projeto para a Atividade 1
+  Será preciso adicionar o cadastro das respostas do usuário ao Quiz, conforme
+  definido no Canvas.
 
-  https://github.com/udofritzke/GeoQuiz
-
+  GitHub: https://github.com/udofritzke/GeoQuiz
  */
 
 public class MainActivity extends AppCompatActivity {
