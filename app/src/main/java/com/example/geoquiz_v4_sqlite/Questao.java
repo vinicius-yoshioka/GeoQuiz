@@ -3,9 +3,12 @@ package com.example.geoquiz_v4_sqlite;
 import java.util.UUID;
 
 public class Questao {
+
+
     private UUID mId;
     private int mTextoRespostaId;
     private boolean mRespostaCorreta;
+
 
     public Questao(int TextoRespostaId, boolean RespostaCorreta) {
         this.mTextoRespostaId = TextoRespostaId;
@@ -13,7 +16,10 @@ public class Questao {
         mId = UUID.randomUUID();
     }
 
-    UUID getId(){return mId;};
+
+    UUID getId() {
+        return mId;
+    }
 
     public int getTextoRespostaId() {
         return mTextoRespostaId;
@@ -30,6 +36,4 @@ public class Questao {
     public void setRespostaCorreta(boolean respostaCorreta) {
         mRespostaCorreta = respostaCorreta;
     }
-
-
 }
