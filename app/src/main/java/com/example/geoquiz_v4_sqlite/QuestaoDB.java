@@ -81,18 +81,20 @@ public class QuestaoDB {
         mDatabase.insert(QuestoesDbSchema.RespostasTbl.NOME, null, valores);
     }
 
-
-    void removeBanco() {
-        int deleteQuestoes = mDatabase.delete(
-                QuestoesDbSchema.QuestoesTbl.NOME,
-                null,
-                null
-        );
-
-        int deleteRespostas = mDatabase.delete(
+    public Cursor getRespostas(String clausulaWhere, String[] argsWhere) {
+        Cursor cursor = mDatabase.query(
                 QuestoesDbSchema.RespostasTbl.NOME,
-                null,
-                null
+                null, // todas as colunas
+                clausulaWhere,
+                argsWhere,
+                null, // sem group by
+                null, // sem having
+                null  // sem order by
         );
+        return cursor;
+    }
+
+    public void deleteRespostas() {
+        mDatabase.delete(QuestoesDbSchema.RespostasTbl.NOME, null, null);
     }
 }

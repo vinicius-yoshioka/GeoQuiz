@@ -128,16 +128,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (mQuestoesDb == null) {
-                    return;
+                    mQuestoesDb = new QuestaoDB(getBaseContext());
                 }
 
                 if (mTextViewQuestoesArmazenadas == null) {
                     mTextViewQuestoesArmazenadas = (TextView) findViewById(R.id.texto_questoes_a_apresentar);
-                } else {
-                    mTextViewQuestoesArmazenadas.setText("");
                 }
+                mTextViewQuestoesArmazenadas.setText("");
 
-                Cursor cursor = mQuestoesDb.queryQuestao(null, null);
+                Cursor cursor = mQuestoesDb.getRespostas(null, null);
                 if (cursor != null) {
                     if (cursor.getCount() == 0) {
                         mTextViewQuestoesArmazenadas.setText("Nada a apresentar");
@@ -147,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         cursor.moveToFirst();
                         while (!cursor.isAfterLast()) {
-                            String texto = cursor.getString(cursor.getColumnIndex(QuestoesDbSchema.QuestoesTbl.Cols.TEXTO_QUESTAO));
+                            String texto = cursor.getString(cursor.getColumnIndex(QuestoesDbSchema.RespostasTbl.Cols.RESPOSTA_OFERECIDA));
                             Log.i("MSGS", texto);
 
                             mTextViewQuestoesArmazenadas.append(texto + "\n\n");
@@ -166,13 +165,16 @@ public class MainActivity extends AppCompatActivity {
         mBotaoDeleta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mQuestoesDb != null) {
-                    mQuestoesDb.removeBanco();
-                    if (mTextViewQuestoesArmazenadas == null) {
-                        mTextViewQuestoesArmazenadas = (TextView) findViewById(R.id.texto_questoes_a_apresentar);
-                    }
-                    mTextViewQuestoesArmazenadas.setText("");
+                if (mQuestoesDb == null) {
+                    mQuestoesDb = new QuestaoDB(getBaseContext());
                 }
+
+                mQuestoesDb.deleteRespostas();
+
+                if (mTextViewQuestoesArmazenadas == null) {
+                    mTextViewQuestoesArmazenadas = (TextView) findViewById(R.id.texto_questoes_a_apresentar);
+                }
+                mTextViewQuestoesArmazenadas.setText("");
             }
         });
     }
