@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
             mIndiceAtual = instanciaSalva.getInt(CHAVE_INDICE, 0);
         }
 
+        mQuestoesDb = new QuestaoDB(getBaseContext());
+
         mTextViewQuestao = (TextView) findViewById(R.id.view_texto_da_questao);
         atualizaQuestao();
 
@@ -64,10 +66,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 verificaResposta(true);
-
-                if (mQuestoesDb == null) {
-                    mQuestoesDb = new QuestaoDB(getBaseContext());
-                }
 
                 Questao questaoRespondida = mBancoDeQuestoes[mIndiceAtual];
 
@@ -86,10 +84,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 verificaResposta(false);
-
-                if (mQuestoesDb == null) {
-                    mQuestoesDb = new QuestaoDB(getBaseContext());
-                }
 
                 Questao questaoRespondida = mBancoDeQuestoes[mIndiceAtual];
 
@@ -127,10 +121,6 @@ public class MainActivity extends AppCompatActivity {
         mBotaoMostra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mQuestoesDb == null) {
-                    mQuestoesDb = new QuestaoDB(getBaseContext());
-                }
-
                 if (mTextViewQuestoesArmazenadas == null) {
                     mTextViewQuestoesArmazenadas = (TextView) findViewById(R.id.texto_questoes_a_apresentar);
                 }
@@ -165,10 +155,6 @@ public class MainActivity extends AppCompatActivity {
         mBotaoDeleta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mQuestoesDb == null) {
-                    mQuestoesDb = new QuestaoDB(getBaseContext());
-                }
-
                 mQuestoesDb.deleteRespostas();
 
                 if (mTextViewQuestoesArmazenadas == null) {
