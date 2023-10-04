@@ -64,6 +64,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 verificaResposta(true);
+
+                if (mQuestoesDb == null) {
+                    mQuestoesDb = new QuestaoDB(getBaseContext());
+                }
+
+                Questao questaoRespondida = mBancoDeQuestoes[mIndiceAtual];
+
+                Resposta resposta = new Resposta();
+                resposta.setUuid(questaoRespondida.getId());
+                resposta.setRespostaOferecida(1);
+                resposta.setRespostaCorreta(questaoRespondida.isRespostaCorreta() ? 1 : 0);
+                resposta.setColou(mEhColador ? 1 : 0);
+
+                mQuestoesDb.addResposta(resposta);
             }
         });
 
@@ -72,6 +86,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 verificaResposta(false);
+
+                if (mQuestoesDb == null) {
+                    mQuestoesDb = new QuestaoDB(getBaseContext());
+                }
+
+                Questao questaoRespondida = mBancoDeQuestoes[mIndiceAtual];
+
+                Resposta resposta = new Resposta();
+                resposta.setUuid(questaoRespondida.getId());
+                resposta.setRespostaOferecida(0);
+                resposta.setRespostaCorreta(questaoRespondida.isRespostaCorreta() ? 1 : 0);
+                resposta.setColou(mEhColador ? 1 : 0);
+
+                mQuestoesDb.addResposta(resposta);
             }
         });
 
@@ -94,24 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, CODIGO_REQUISICAO_COLA);
             }
         });
-
-        //mBotaoCadastra = (Button) findViewById(R.id.botao_cadastra);
-        //mBotaoCadastra.setOnClickListener(new View.OnClickListener() {
-        //   @Override
-        //    public void onClick(View view) {
-        //        /*
-        //          Acesso ao SQLite
-        //        */
-        //        if (mQuestoesDb == null) {
-        //            mQuestoesDb = new QuestaoDB(getBaseContext());
-        //        }
-        //        int indice = 0;
-        //        mQuestoesDb.addQuestao(mBancoDeQuestoes[indice++]);
-        //        mQuestoesDb.addQuestao(mBancoDeQuestoes[indice++]);
-        //    }
-        //});
-        //Cursor cur = mQuestoesDb.queryQuestao ("_id = ?", val);////(null, null);
-        //String [] val = {"1"};
 
         mBotaoMostra = (Button) findViewById(R.id.botao_mostra_questoes);
         mBotaoMostra.setOnClickListener(new View.OnClickListener() {

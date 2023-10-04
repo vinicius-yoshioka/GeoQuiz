@@ -64,6 +64,24 @@ public class QuestaoDB {
         return cursor;
     }
 
+
+    private static ContentValues getRespostaContentValues(Resposta r) {
+        ContentValues valores = new ContentValues();
+
+        valores.put(QuestoesDbSchema.RespostasTbl.Cols.UUID, r.getUuid().toString());
+        valores.put(QuestoesDbSchema.RespostasTbl.Cols.RESPOSTA_CORRETA, r.getRespostaCorreta());
+        valores.put(QuestoesDbSchema.RespostasTbl.Cols.RESPOSTA_OFERECIDA, r.getRespostaOferecida());
+        valores.put(QuestoesDbSchema.RespostasTbl.Cols.COLOU, r.getColou());
+
+        return valores;
+    }
+
+    public void addResposta(Resposta r) {
+        ContentValues valores = getRespostaContentValues(r);
+        mDatabase.insert(QuestoesDbSchema.RespostasTbl.NOME, null, valores);
+    }
+
+
     void removeBanco() {
         int deleteQuestoes = mDatabase.delete(
                 QuestoesDbSchema.QuestoesTbl.NOME,
